@@ -10,10 +10,4 @@ platform:
 steps:
 - name: test
   commands:
-  - nix shell 'nixpkgs#git' -c nix flake check
-
----
-kind: signature
-hmac: 5d8d8a905775664e3767957413f19d588cdf550746547ad985ad8254bf265d9e
-
-...
+  - lscpu
