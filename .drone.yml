@@ -1,33 +1,19 @@
-# inserted by test hello-appium/.drone.yml start
-# https://docs.drone.io/pipeline/environment/reference/
-
+---
 kind: pipeline
-name: hello-appium
-type: docker
+type: exec
+name: nixos-tests
+
+platform:
+  os: linux
+  arch: amd64
 
 steps:
 - name: test
-  image: appium/appium
   commands:
-  - echo hello
-  - echo world
-  - echo $DRONE_BRANCH
-
-# inserted by test hello-appium/.drone.yml end
+  - nix shell 'nixpkgs#git' -c nix flake check
 
 ---
+kind: signature
+hmac: 5d8d8a905775664e3767957413f19d588cdf550746547ad985ad8254bf265d9e
 
-# inserted by test hello-appium-x86-image/.drone.yml start
-kind: pipeline
-name: hello-appium-x86-image
-type: docker
-
-steps:
-- name: test
-  image: logickee/appium_x86_basic
-  commands:
-  - echo hello
-  - echo world
-  - echo $DRONE_BRANCH
-
-# inserted by test hello-appium-x86-image/.drone.yml end
+...
