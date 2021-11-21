@@ -1,14 +1,33 @@
----
+# inserted by test hello-appium/.drone.yml start
+# https://docs.drone.io/pipeline/environment/reference/
+
 kind: pipeline
-name: test
+name: hello-appium
+type: docker
+
 steps:
-- name: download drone-cli
-  image: drone/cli:1.2.2-alpine
+- name: test
+  image: appium/appium
   commands:
-  - cp /bin/drone .
-- name: test .drone.yml
-  image: bats/bats:1.2.1
+  - echo hello
+  - echo world
+  - echo $DRONE_BRANCH
+
+# inserted by test hello-appium/.drone.yml end
+
+---
+
+# inserted by test hello-appium-x86-image/.drone.yml start
+kind: pipeline
+name: hello-appium-x86-image
+type: docker
+
+steps:
+- name: test
+  image: logickee/appium_x86_basic
   commands:
-  - bats --version
-  - mv drone /usr/local/bin
-  - bats scripts/test.bats
+  - echo hello
+  - echo world
+  - echo $DRONE_BRANCH
+
+# inserted by test hello-appium-x86-image/.drone.yml end
