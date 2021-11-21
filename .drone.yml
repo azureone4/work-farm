@@ -1,13 +1,14 @@
 ---
 kind: pipeline
-type: exec
-name: nixos-tests
-
-platform:
-  os: linux
-  arch: amd64
-
+name: test
 steps:
-- name: test
+- name: download drone-cli
+  image: drone/cli:1.2.2-alpine
   commands:
-  - nix shell 'lscpu' -c nix flake check
+  - cp /bin/drone .
+- name: test .drone.yml
+  image: bats/bats:1.2.1
+  commands:
+  - bats --version
+  - mv drone /usr/local/bin
+  - bats scripts/test.bats
